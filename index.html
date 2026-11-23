@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kotoba — 30 mots japonais</title>
+<style>
+:root{--fond:#0F0F10;--surf:#1A1A1C;--trait:#2C2C30;--encre:#F4F1EA;--doux:#A9A59C;--jaune:#F2D21B;--r:10px}
+*{box-sizing:border-box;margin:0}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{background:var(--fond);color:var(--encre);font:17px/1.5 system-ui,-apple-system,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+.w{max-width:640px;margin:0 auto;padding:0 16px}
+header{padding:20px 0 8px}
+h1{font-size:28px;line-height:1.15}
+.sous{color:var(--doux);font-size:15px;margin-top:4px}
+nav{position:sticky;top:0;z-index:5;background:var(--fond);display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:12px 0;border-bottom:1px solid var(--trait)}
+nav button{font:600 15px system-ui;padding:11px 0;border-radius:var(--r);border:1px solid var(--trait);background:var(--surf);color:var(--encre)}
+nav button[aria-selected=true]{background:var(--jaune);color:#111;border-color:var(--jaune)}
+.vue{display:none;padding:20px 0 48px}.vue.on{display:block}
+.mot{padding:18px 0;border-bottom:1px solid var(--trait)}
+.zb{display:block;width:100%;padding:0;border:0;background:none;margin-bottom:12px;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.zb:focus-visible{outline:2px solid var(--jaune);outline-offset:2px;border-radius:var(--r)}
+.mot img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center 40%;border-radius:var(--r);background:var(--surf)}
+#zm{border:0;padding:0;width:100%;height:100%;max-width:none;max-height:none;background:#000;color:#fff}
+#zm::backdrop{background:#000}
+#zm .zc{width:100%;height:100dvh;overflow:auto;display:grid;-webkit-overflow-scrolling:touch}
+#zm .zc img{margin:auto;max-width:100%;max-height:100dvh;object-fit:contain;cursor:zoom-in}
+#zm .zc.p img{max-width:none;max-height:none;width:250vw;cursor:zoom-out}
+#zm .x{position:fixed;top:max(12px,env(safe-area-inset-top));right:12px;z-index:2;width:44px;height:44px;border-radius:99px;border:1px solid var(--trait);background:rgba(0,0,0,.6);color:#fff;font:600 20px system-ui}
+#zm .x:focus-visible{outline:2px solid var(--jaune)}
+.mot h2{font-size:22px;display:flex;gap:10px;align-items:baseline}
+.mot h2 span{color:var(--jaune);font-weight:400}
+.mot .tr{color:var(--doux);font-style:italic;margin:2px 0 8px}
+.note{font-size:14px;color:var(--doux);margin-top:6px}
+/* Carrousel */
+.aide{color:var(--doux);font-size:14px;margin-bottom:14px}
+.pile{display:grid;gap:18px}
+.s{aspect-ratio:4/5;container-type:inline-size;position:relative;overflow:hidden;border-radius:6px;background:var(--bg,#2a3b2f);display:flex;flex-direction:column;justify-content:flex-end}
+.s .kj{position:absolute;top:6cqw;left:0;right:0;text-align:center;font-size:58cqw;line-height:1;color:#fff;opacity:.13;font-weight:700}
+.s .mq{position:absolute;top:5cqw;left:5cqw;font:italic 700 7cqw/1 Georgia,serif;color:#fff}
+.s .mq::after{content:".";color:var(--jaune)}
+.s .nb{position:absolute;top:5cqw;right:5cqw;font:600 3.6cqw system-ui;background:rgba(0,0,0,.45);padding:1.4cqw 3cqw;border-radius:99px;color:#fff}
+.s .bd{background:linear-gradient(transparent,#000 22%);padding:16cqw 5cqw 7cqw;text-align:center;text-transform:uppercase;font-weight:800;letter-spacing:-.01em}
+.s .t{color:var(--jaune);font-size:7.2cqw;line-height:1;white-space:nowrap}
+.s .t i{font-style:normal;font-weight:500;text-transform:none;font-size:.8em}
+.s .q{color:#fff;font-size:5.4cqw;line-height:1.08;margin-top:4cqw}
+.s .q b{display:block;margin-bottom:1cqw}
+.s.cv .bd,.s.fin .bd{padding-top:30cqw}
+.s.cv .q,.s.fin .q{font-size:7.4cqw}
+[contenteditable]:focus{outline:2px dashed var(--jaune);outline-offset:2px}
+.dl{display:block;width:100%;margin-top:8px;padding:12px;font:600 15px system-ui;border-radius:var(--r);border:1px solid var(--trait);background:var(--surf);color:var(--encre)}
+.ser{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.ser button{font:600 15px system-ui;padding:11px 0;border-radius:var(--r);border:1px solid var(--trait);background:var(--surf);color:var(--encre)}
+.ser button[aria-pressed=true]{background:var(--jaune);color:#111;border-color:var(--jaune)}
+.ser button:focus-visible{outline:2px solid var(--jaune);outline-offset:2px}
+/* Déclic */
+.carte{background:var(--surf);border:1px solid var(--trait);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.carte .th{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--jaune)}
+.carte h3{font-size:19px;margin:6px 0 12px}
+/* Réponse en <details> natif : ouvre/ferme sans JS, focus conservé */
+.carte summary{display:inline-block;list-style:none;cursor:pointer;font:600 15px system-ui;padding:10px 14px;border-radius:var(--r);background:var(--jaune);color:#111}
+.carte summary::-webkit-details-marker{display:none}
+.carte summary:focus-visible,nav button:focus-visible,.dl:focus-visible{outline:2px solid var(--jaune);outline-offset:2px}
+.carte .rep{margin-top:12px;border-top:1px solid var(--trait);padding-top:12px}
+.src{font-size:13px;color:var(--doux);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="w">
+<header><h1>Kotoba</h1><p class="sous">30 mots japonais pour se prendre moins la tête</p></header>
+<nav role="tablist" aria-label="Rubriques">
+<button role="tab" id="o-mots" aria-controls="mots" aria-selected="true" data-v="mots">Les mots</button>
+<button role="tab" id="o-car" aria-controls="car" aria-selected="false" tabindex="-1" data-v="car">Carrousel</button>
+<button role="tab" id="o-dec" aria-controls="dec" aria-selected="false" tabindex="-1" data-v="dec">Déclic</button>
+</nav>
+<main>
+<section class="vue on" id="mots" role="tabpanel" aria-labelledby="o-mots"></section>
+<section class="vue" id="car" role="tabpanel" aria-labelledby="o-car"><p class="aide">Touche un texte pour le modifier. « Ta marque » = ton nom. Chaque slide s'exporte en PNG 1080×1350. Instagram accepte 20 slides max : une série = 17 slides.</p><div class="ser" role="group" aria-label="Série de mots"><button aria-pressed="true" data-s="0">Mots 1 à 15</button><button aria-pressed="false" data-s="1">Mots 16 à 30</button></div><div class="pile" id="pile"></div></section>
+<section class="vue" id="dec" role="tabpanel" aria-labelledby="o-dec"><p class="aide">Format Déclic : d'abord ton intuition, puis ce que dit la recherche.</p><div id="cartes"></div></section>
+</main>
+</div>
+<dialog id="zm" aria-label="Photo agrandie"><button class="x" aria-label="Fermer">✕</button><div class="zc"><img alt=""></div></dialog>
+<script>
+// Données : mot, kanji, traduction, idée, couleur de fond, carte Déclic
+const M=[
+{m:"Shōganai",k:"しょうがない",kj:"無",tr:"On n'y peut rien",i:"Ce qui est fait est fait. Le ressasser, c'est payer deux fois la même facture.",bg:"#3a3f47",
+ q:"Repenser sans arrêt à une erreur aide-t-il à ne pas la refaire ?",r:"Non. Tourner en boucle (rumination) est lié à plus d'anxiété et de déprime. Ce qui aide : chercher une action concrète, puis lâcher.",s:"Nolen-Hoeksema, Wisco & Lyubomirsky, 2008, Perspectives on Psychological Science"},
+{m:"Choshin",k:"調身",kj:"身",tr:"Régler le corps",i:"Avant de soigner ta tête, vérifie : as-tu mangé ? As-tu dormi ?",bg:"#4a3a2c",
+ q:"Une seule nuit blanche change-t-elle tes émotions ?",r:"Oui. Après environ 35 h sans dormir, l'alarme du cerveau (amygdale) réagit environ 60 % plus fort aux images négatives.",s:"Yoo et al., 2007, Current Biology"},
+{m:"Ma",k:"間",kj:"間",tr:"L'espace entre les choses",i:"Un message n'exige pas une réponse immédiate. Le silence fait partie de la conversation.",bg:"#5a2a26",
+ q:"Répondre tout de suite rend-il plus efficace ?",r:"Pas vraiment. Les gens interrompus finissent plus vite, mais avec plus de stress, de pression et de frustration.",s:"Mark, Gudith & Klocke, 2008, CHI"},
+{m:"Enryo",k:"遠慮",kj:"遠",tr:"La retenue",i:"Dire non, c'est prendre soin de soi. Tu n'as pas à donner jusqu'à n'avoir plus rien.",bg:"#2c4a5a",
+ n:"Au sens strict, enryo = retenue, réserve. Le lien avec « dire non » est une interprétation du carrousel.",
+ q:"Pour tenir un refus, vaut-il mieux dire « je ne peux pas » ou « je ne fais pas » ?",r:"« Je ne fais pas ». Les personnes qui disaient « je ne fais pas » ont mieux tenu leurs refus que celles qui disaient « je ne peux pas ».",s:"Patrick & Hagtvedt, 2012, Journal of Consumer Research"},
+{m:"Shinrin-yoku",k:"森林浴",kj:"森",tr:"Bain de forêt",i:"Quand ta tête fait trop de bruit, sors. Cherche des arbres. Le monde est plus grand que tes pensées.",bg:"#2a4a32",
+ q:"Une marche dans les arbres change-t-elle quelque chose dans le corps ?",r:"Oui. Comparé à la ville, marcher en forêt baisse le cortisol (hormone du stress), le pouls et la tension.",s:"Park et al., 2010, Environmental Health and Preventive Medicine"},
+{m:"Wabi-sabi",k:"侘寂",kj:"寂",tr:"La beauté de l'imparfait",i:"Tu as fait une erreur ? C'était un moment imparfait. Pas ce que tu es.",bg:"#4a4436",
+ q:"Être dur avec soi après un échec aide-t-il à progresser ?",r:"Non. Les personnes qui se parlent avec bienveillance après un échec travaillent plus pour s'améliorer que celles qui se critiquent.",s:"Breines & Chen, 2012, Personality and Social Psychology Bulletin"},
+{m:"Kaizen",k:"改善",kj:"改",tr:"Amélioration continue",i:"Oublie l'escalier entier. Monte une marche. Tu n'as pas à tout régler aujourd'hui.",bg:"#33452e",
+ q:"Combien de jours pour qu'une habitude devienne automatique ?",r:"66 jours en moyenne, de 18 à 254 selon les gens. Rater un jour ne casse pas l'habitude.",s:"Lally et al., 2010, European Journal of Social Psychology"},
+{m:"Ikigai",k:"生き甲斐",kj:"生",tr:"Ce pour quoi on se lève",i:"Pas besoin d'une grande mission. Une raison de te lever demain suffit.",bg:"#5a3a1e",
+ q:"Avoir une raison de vivre change-t-il quelque chose à la santé ?",r:"Oui. Dans une étude sur plus de 40 000 Japonais suivis 7 ans, ceux qui disaient ne pas avoir d'ikigai avaient un risque de décès plus élevé.",s:"Sone et al., 2008, Psychosomatic Medicine"},
+{m:"Kintsugi",k:"金継ぎ",kj:"金",tr:"Réparer avec de l'or",i:"Tes cassures font partie de ton histoire. Répare-les, ne les cache pas.",bg:"#4a3a12",
+ q:"Écrire sur un moment difficile peut-il faire du bien ?",r:"Oui. Des étudiants qui ont écrit 15 min par jour sur un vécu difficile sont allés moins souvent chez le médecin les mois suivants.",s:"Pennebaker & Beall, 1986, Journal of Abnormal Psychology"},
+{m:"Ichi-go ichi-e",k:"一期一会",kj:"会",tr:"Une fois, une rencontre",i:"Ce moment ne reviendra pas pareil. Pose ton téléphone, sois là.",bg:"#3a2a4a", q:"Dire merci à quelqu'un de vive voix rend-il plus heureux ?",r:"Oui. Écrire et lire une lettre de gratitude à une personne a augmenté le bonheur pendant environ un mois.",s:"Seligman et al., 2005, American Psychologist"},
+{m:"Mono no aware",k:"物の哀れ",kj:"哀",tr:"La douceur des choses qui passent",i:"Les cerisiers sont beaux parce qu'ils tombent. Profite avant que ça passe.",bg:"#4a2c38",
+ q:"Savoir qu'une période se termine change-t-il la façon de la vivre ?",r:"Oui. Des étudiants à qui on rappelait que la fin des études approchait en ont plus profité et ont fait plus d'activités.",s:"Kurtz, 2008, Psychological Science"},
+{m:"Oubaitori",k:"桜梅桃李",kj:"桜",tr:"Chaque fleur à son rythme",i:"Le cerisier ne se compare pas au prunier. Chacun fleurit quand c'est son tour.",bg:"#4a2a30",
+ q:"Faire défiler la vie des autres sur les réseaux joue-t-il sur le moral ?",r:"Oui. Regarder Facebook sans interagir a baissé le bien-être, surtout à cause de l'envie.",s:"Verduyn et al., 2015, Journal of Experimental Psychology: General"},
+{m:"Hara hachi bu",k:"腹八分",kj:"腹",tr:"Manger à 80 %",i:"Arrête-toi avant d'être plein. Le corps met du temps à dire « assez ».",bg:"#3a4a2a",
+ q:"Manger lentement fait-il manger moins ?",r:"Oui. Dans un même repas, manger lentement a fait consommer environ 10 % de calories en moins.",s:"Andrade, Greene & Melanson, 2008, Journal of the American Dietetic Association"},
+{m:"Mushin",k:"無心",kj:"心",tr:"L'esprit libre",i:"Fais une chose à la fois, sans juger. La tête se calme quand les mains travaillent.",bg:"#2a3a4a",
+ q:"Combien de temps notre esprit vagabonde-t-il ailleurs ?",r:"Environ 47 % du temps éveillé. Et on est en moyenne moins heureux quand l'esprit vagabonde.",s:"Killingsworth & Gilbert, 2010, Science"},
+{m:"Komorebi",k:"木漏れ日",kj:"木",tr:"La lumière à travers les feuilles",i:"Lève les yeux. Un peu de vert et de lumière suffit à changer la journée.",bg:"#2e4a2a",
+ q:"Voir des arbres par la fenêtre aide-t-il à guérir ?",r:"Oui. À l'hôpital, les patients avec vue sur des arbres sont sortis plus tôt et ont pris moins d'antidouleurs que ceux face à un mur.",s:"Ulrich, 1984, Science"},
+{m:"Gaman",k:"我慢",kj:"耐",tr:"Endurer avec dignité",i:"Certaines périodes sont dures. Tenir sans se plaindre est aussi une force.",bg:"#3a2f4a",
+ q:"Mettre un mot sur ce qu'on ressent change-t-il quelque chose dans le cerveau ?",r:"Oui. Nommer l'émotion (« en colère ») baisse l'activité de l'amygdale, l'alarme du cerveau. Mettre un simple prénom sur le visage ne change rien.",s:"Lieberman et al., 2007, Psychological Science"},
+{m:"Mottainai",k:"勿体無い",kj:"惜",tr:"Quel gâchis",i:"Respecte ce que tu as : objets, nourriture, temps. Ne gaspille pas.",bg:"#4a3030",
+ q:"Une tâche laissée en plan continue-t-elle de trotter dans la tête ?",r:"Oui. Un objectif non terminé revient en pensées parasites et gêne d'autres tâches. Faire un plan précis pour le finir a suffi à faire disparaître cet effet.",s:"Masicampo & Baumeister, 2011, Journal of Personality and Social Psychology"},
+{m:"Shu-ha-ri",k:"守破離",kj:"守",tr:"Suivre, adapter, dépasser",i:"D'abord on copie le maître, puis on adapte, puis on crée sa voie.",bg:"#2a4044",
+ q:"Qu'est-ce qui distinguait les meilleurs violonistes d'une académie de Berlin ?",r:"Le temps passé à travailler seuls pour progresser (la « pratique délibérée »). Les meilleurs en avaient cumulé nettement plus que les autres.",c:"Les heures ont été estimées de mémoire par les musiciens, et l'étude porte sur des violonistes et des pianistes.",s:"Ericsson, Krampe & Tesch-Römer, 1993, Psychological Review"},
+{m:"Ganbaru",k:"頑張る",kj:"張",tr:"Tenir bon",i:"Donner le meilleur de soi, même quand c'est difficile.",bg:"#44402a",
+ q:"Vaut-il mieux se dire « fais de ton mieux » ou viser un objectif précis et exigeant ?",r:"Un objectif précis et exigeant. Il donne de meilleurs résultats que « fais de ton mieux » ou qu'un objectif facile, tant qu'on reste engagé et que c'est à sa portée.",s:"Locke & Latham, 2002, American Psychologist"},
+{m:"Nemawashi",k:"根回し",kj:"根",tr:"Préparer les racines",i:"Avant un grand changement, parle à chacun. Les idées se plantent doucement.",bg:"#2a3a3a",
+ q:"Demander conseil te fait-il passer pour quelqu'un de moins compétent ?",r:"Non, plutôt l'inverse. Les gens jugent plus compétent celui qui leur demande conseil, surtout quand le problème est difficile.",s:"Brooks, Gino & Schweitzer, 2015, Management Science"},
+{m:"Omotenashi",k:"おもてなし",kj:"迎",tr:"Accueillir de tout cœur",i:"Anticiper les besoins de l'autre, sans rien attendre en retour.",bg:"#4a3a3a",
+ q:"Faire un geste gentil pour quelqu'un te rend-il plus heureux ?",r:"Oui, un peu. En regroupant 27 études (plus de 4 000 personnes), l'effet sur le bien-être est petit à moyen.",s:"Curry et al., 2018, Journal of Experimental Social Psychology"},
+{m:"Yūgen",k:"幽玄",kj:"幽",tr:"La profondeur cachée",i:"Certaines choses touchent plus parce qu'on ne les comprend pas tout à fait.",bg:"#2e3a4a",
+ q:"Regarder quelque chose d'immense change-t-il la sensation d'avoir du temps ?",r:"Oui. Ceux qui vivent un moment d'émerveillement (awe) ont plus l'impression d'avoir du temps et sont moins impatients.",s:"Rudd, Vohs & Aaker, 2012, Psychological Science"},
+{m:"Kodawari",k:"こだわり",kj:"拘",tr:"Le souci du détail",i:"Bien faire une petite chose, jusqu'au bout. Pour soi, pas pour les autres.",bg:"#3a4a3a",
+ q:"Aime-t-on plus ce qu'on a fabriqué soi-même, même quand c'est imparfait ?",r:"Oui. Des participants ont donné presque autant de valeur à leur meuble ou leur origami maladroit qu'à ceux faits par des experts. L'effet disparaît si le travail n'est pas terminé.",s:"Norton, Mochon & Ariely, 2012, Journal of Consumer Psychology"},
+{m:"Shibui",k:"渋い",kj:"渋",tr:"L'élégance sobre",i:"Le beau n'a pas besoin d'en faire trop. Simple, discret, juste.",bg:"#4a2e44",
+ q:"Trop d'objets sous les yeux gênent-ils la concentration ?",r:"Probablement. Quand plusieurs objets sont visibles en même temps, ils se disputent la vision du cerveau et réduisent le signal les uns des autres. Choisir où porter son attention compense.",c:"Étude de laboratoire sur des formes simples, pas sur de vrais bureaux. Le lien avec un bureau rangé est une interprétation.",s:"McMains & Kastner, 2011, Journal of Neuroscience"},
+{m:"Natsukashii",k:"懐かしい",kj:"懐",tr:"La douce nostalgie",i:"Un souvenir heureux qui revient. Le passé peut aussi réchauffer.",bg:"#40302a",
+ q:"Un souvenir nostalgique aide-t-il quand on se sent seul ?",r:"Oui. Plus on se sent seul, plus on devient nostalgique, et cela redonne le sentiment d'être entouré et soutenu.",s:"Zhou, Sedikides, Wildschut & Gao, 2008, Psychological Science"},
+{m:"Tsundoku",k:"積ん読",kj:"読",tr:"Les livres empilés",i:"Acheter des livres et ne pas les lire. On a tous une pile.",bg:"#2a4a44",
+ q:"Lire des livres est-il lié à une vie plus longue ?",r:"Oui, c'est lié. Sur 3 635 personnes âgées suivies 12 ans, les lecteurs de livres avaient environ 20 % de risque de décès en moins que les non-lecteurs. Les journaux et magazines comptaient moins.",c:"Étude d'observation : elle ne prouve pas que lire allonge la vie.",s:"Bavishi, Slade & Levy, 2016, Social Science & Medicine"},
+{m:"Wa",k:"和",kj:"和",tr:"L'harmonie",i:"Chercher l'accord du groupe plutôt que gagner seul.",bg:"#3a3a4a",
+ q:"Être vraiment écouté change-t-il la façon dont on voit ses propres idées ?",r:"Oui. Face à un auditeur attentif, empathique et sans jugement, les gens sont moins anxieux et voient plus clairement ce qu'ils pensent.",s:"Itzchakov et al., 2018, Personality and Social Psychology Bulletin"},
+{m:"Datsuzoku",k:"脱俗",kj:"脱",tr:"Sortir de la routine",i:"Casser l'habitude pour retrouver la fraîcheur.",bg:"#4a4030",
+ q:"Faire quelque chose de nouveau à deux redonne-t-il de l'élan à une relation ?",r:"Oui. Après 7 minutes sur une tâche nouvelle et stimulante plutôt que banale, des couples jugeaient leur relation de meilleure qualité.",c:"Étude sur des couples, avec une tâche nouvelle et stimulante : ce n'est pas la même chose qu'un simple changement de trajet.",s:"Aron et al., 2000, Journal of Personality and Social Psychology"},
+{m:"Seijaku",k:"静寂",kj:"静",tr:"Le calme au milieu du bruit",i:"Le calme n'est pas l'absence de bruit. C'est un endroit en toi.",bg:"#303a4a",
+ q:"Cinq minutes de respiration lente valent-elles cinq minutes de méditation ?",r:"Un peu mieux, oui. Pendant un mois, 5 minutes par jour de respiration avec de longues expirations (« soupir cyclique ») ont amélioré l'humeur davantage que la méditation de pleine conscience, qui a aussi aidé.",c:"Une seule étude, à distance, sur un mois, avec des mesures déclarées par les participants.",s:"Balban et al., 2023, Cell Reports Medicine"},
+{m:"Hansei",k:"反省",kj:"省",tr:"Le regard sur soi",i:"Revenir sur ce qu'on a fait, sans se juger, pour faire mieux demain.",bg:"#4a3a46",
+ q:"Vaut-il mieux continuer à pratiquer ou prendre un moment pour réfléchir à ce qu'on vient de faire ?",r:"Réfléchir. Des personnes qui prenaient quelques minutes pour écrire ce qu'elles avaient appris ont ensuite mieux réussi que celles qui continuaient simplement à pratiquer.",s:"Di Stefano, Gino, Pisano & Staats, 2016, HEC Paris Research Paper"}
+];
+const $=s=>document.querySelector(s);
+// Onglets (clic + flèches gauche/droite, Début/Fin)
+const O=[...document.querySelectorAll("nav button")];
+const choisir=(b,focus)=>{
+ O.forEach(x=>{x.setAttribute("aria-selected",x===b);x.tabIndex=x===b?0:-1});
+ document.querySelectorAll(".vue").forEach(v=>v.classList.toggle("on",v.id===b.dataset.v));
+ if(focus)b.focus();scrollTo(0,0)};
+O.forEach((b,i)=>{b.onclick=()=>choisir(b);b.onkeydown=e=>{
+ const n={ArrowRight:i+1,ArrowLeft:i-1,Home:0,End:O.length-1}[e.key];
+ if(n===undefined)return;e.preventDefault();choisir(O[(n+O.length)%O.length],true)}});
+// html-to-image chargé seulement au premier export (page plus rapide à l'ouverture)
+let lib;const charger=()=>lib||(lib=new Promise((ok,ko)=>{const s=document.createElement("script");
+ s.src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js";s.onload=ok;s.onerror=()=>{lib=null;ko()};document.head.append(s)}));
+// Les mots
+const PH=[3583201, 3408353, 2187965, 34385387, 14809610, 31224883, 18848549, 31156895, 461428, 5946632, 5220032, 31355850, 15881377, 31047018, 2893768, 31606403, 31302309, 1498273, 31091368, 8913408, 6249717, 15829423, 9785146, 23224447, 30612368, 4836585, 5946636, 31002127, 31365953, 327483];
+const IMG=["01-shoganai.jpg", "02-choshin.jpg", "03-ma.jpg", "04-enryo.jpg", "05-shinrin-yoku.jpg", "06-wabi-sabi.jpg", "07-kaizen.jpg", "08-ikigai.jpg", "09-kintsugi.jpg", "10-ichi-go.jpg", "11-mono-no-aware.jpg", "12-oubaitori.jpg", "13-hara-hachi-bu.jpg", "14-mushin.jpg", "15-komorebi.jpg", "16-gaman.jpg", "17-mottainai.jpg", "18-shu-ha-ri.jpg", "19-ganbaru.jpg", "20-nemawashi.jpg", "21-omotenashi.jpg", "22-yugen.jpg", "23-kodawari.jpg", "24-shibui.jpg", "25-natsukashii.jpg", "26-tsundoku.jpg", "27-wa.jpg", "28-datsuzoku.jpg", "29-seijaku.jpg", "30-hansei.jpg"];
+const px=n=>IMG[n];
+$("#mots").innerHTML=M.map((o,n)=>`<article class="mot"><button class="zb" data-n="${n}" aria-label="Agrandir la photo : ${o.m}"><img src="${px(n,1200)}" width="1200" height="900" alt="${o.m}" ${n?'loading="lazy"':'fetchpriority="high"'}></button><h2>${o.m}<span>${o.k}</span></h2><p class="tr">« ${o.tr} »</p><p>${o.i}</p>${o.n?`<p class="note">${o.n}</p>`:""}</article>`).join("");
+
+const zm=$("#zm"),zc=zm.querySelector(".zc"),zi=zc.querySelector("img");
+$("#mots").addEventListener("click",e=>{const b=e.target.closest(".zb");if(!b)return;const n=+b.dataset.n;zc.classList.remove("p");zi.src=px(n,2400);zi.alt=M[n].m;zm.showModal();zm.querySelector(".x").focus()});
+zi.addEventListener("click",()=>zc.classList.toggle("p"));
+zm.querySelector(".x").addEventListener("click",()=>zm.close());
+zm.addEventListener("click",e=>{if(e.target===zm||e.target===zc)zm.close()});
+zm.addEventListener("close",()=>{zi.removeAttribute("src")});
+// Carrousel : couverture + 15 mots + fin (2 séries pour rester sous 20 slides)
+let S=0,T=17;
+const slide=(n,bg,kj,bd,c="")=>`<div><div class="s ${c}" style="--bg:${bg}"><div class="kj">${kj}</div><div class="mq" contenteditable>Ta marque</div><div class="nb">${n}/${T}</div><div class="bd">${bd}</div></div><button class="dl">Télécharger ${n}/${T}</button></div>`;
+const monter=()=>{const L=M.slice(S*15,S*15+15);T=L.length+2;
+ $("#pile").innerHTML=
+  slide(1,"#1c1c1e","日",`<div class="q" contenteditable>${S?"15 autres mots":"15 mots"} japonais pour arrêter de te prendre la tête</div>`,"cv")+
+  L.map((o,i)=>slide(i+2,o.bg,o.kj,`<div class="t" contenteditable>${o.m} <i>${o.k}</i></div><div class="q" contenteditable><b>« ${o.tr} »</b>${o.i}</div>`)).join("")+
+  slide(T,"#1c1c1e","続",`<div class="q" contenteditable>Enregistre ce post.<br>Relis-le quand ça déborde.</div>`,"fin");
+ // Export PNG 1080×1350
+ document.querySelectorAll(".dl").forEach((b,i)=>b.onclick=async()=>{
+  const s=b.previousElementSibling;b.textContent="Export…";
+  try{await charger();const u=await htmlToImage.toPng(s,{pixelRatio:1080/s.offsetWidth});
+   const a=document.createElement("a");a.href=u;a.download=`kotoba-s${S+1}-${i+1}.png`;a.click();b.textContent=`Téléchargé ${i+1}/${T}`}
+  catch(e){b.textContent="Échec : fais une capture d'écran"}})};
+document.querySelectorAll(".ser button").forEach(b=>b.onclick=()=>{S=+b.dataset.s;
+ document.querySelectorAll(".ser button").forEach(x=>x.setAttribute("aria-pressed",x===b));monter()});
+monter();
+// Cartes Déclic
+$("#cartes").innerHTML=M.map(o=>`<div class="carte"><p class="th">${o.m} · ${o.k}</p><h3>${o.q}</h3><details><summary>Voir la recherche</summary><div class="rep"><p>${o.r}</p>${o.c?`<p class="note">${o.c}</p>`:""}<p class="src">Source : ${o.s}</p></div></details></div>`).join("");
+</script>
+</body>
+</html>
